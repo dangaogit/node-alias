@@ -16,6 +16,7 @@
     "removeComments": false,
     "allowJs": true,
     "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
     "charset": "utf8",
     "baseUrl": ".",
