@@ -1,6 +1,6 @@
 {
   "name": "@dangao/node-alias",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "node alias",
   "main": "dist/index.js",
   "repository": "https://github.com/dangaogit/node-alias.git",
@@ -12,6 +12,15 @@
   },
   "files": [
     "dist/*"
+  ],
+  "keywords": [
+    "alias",
+    "node alias",
+    "nodejs alias",
+    "rename",
+    "path",
+    "rename path",
+    "path resolve"
   ],
   "devDependencies": {
     "@types/node": "^14.0.27",
