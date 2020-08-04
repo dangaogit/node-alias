@@ -25,11 +25,11 @@ class NodeAlias {
     const { aliasNames, paths } = this;
     (Module as any)._resolveFilename = function () {
       const filename = arguments[0] as string;
-      const dir = stackParsing()[1].dir;
+      const dir = stackParsing().filter(s =>!/^internal\/modules/.test(s.addr))[2].dir;
 
       for(let i = 0; i<paths.length;i++) {
         const p = paths[i];
-        if(new RegExp(`^${dir}`).test(p) && aliasNames[i].test(filename)) {
+        if(new RegExp(`^${p}`).test(dir) && aliasNames[i].test(filename)) {
           arguments[0] = filename.replace(aliasNames[i], p);
           break;
         }
