@@ -25,7 +25,8 @@ class NodeAlias {
     const { aliasNames, paths } = this;
     (Module as any)._resolveFilename = function () {
       const filename = arguments[0] as string;
-      const stack = stackParsing().filter((s) => !/^internal\/modules/.test(s.addr))[2];
+      const stacks = stackParsing().filter((s) => !/(^internal\/modules)|(node_modules)/.test(s.addr));
+      const stack = stacks[0];
 
       if (stack) {
         const dir = stack.dir;
