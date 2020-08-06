@@ -1,6 +1,6 @@
 {
   "name": "@dangao/node-alias",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "node alias",
   "main": "dist/index.js",
   "repository": "https://github.com/dangaogit/node-alias.git",

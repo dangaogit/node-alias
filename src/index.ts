@@ -25,15 +25,17 @@ class NodeAlias {
     const { aliasNames, paths } = this;
     (Module as any)._resolveFilename = function () {
       const filename = arguments[0] as string;
-      const dir = stackParsing().filter(s =>!/^internal\/modules/.test(s.addr))[2].dir;
+      const stack = stackParsing().filter((s) => !/^internal\/modules/.test(s.addr))[2];
 
-      for(let i = 0; i<paths.length;i++) {
-        const p = paths[i];
-        if(new RegExp(`^${p}`).test(dir) && aliasNames[i].test(filename)) {
-          arguments[0] = filename.replace(aliasNames[i], p);
-          break;
+      if (stack) {
+        const dir = stack.dir;
+        for (let i = 0; i < paths.length; i++) {
+          const p = paths[i];
+          if (new RegExp(`^${p}`).test(dir) && aliasNames[i].test(filename)) {
+            arguments[0] = filename.replace(aliasNames[i], p);
+            break;
+          }
         }
-        
       }
 
       return originResolveFilename.call(this, ...arguments);
@@ -42,19 +44,18 @@ class NodeAlias {
 
   public add = (alias: string, path: string) => {
     const reg = new RegExp(`^${alias}`);
-    if(this.paths.length > 0) {
-      for(const p of this.paths) {
-        if(path.length >= p.length) {
+    if (this.paths.length > 0) {
+      for (const p of this.paths) {
+        if (path.length >= p.length) {
           this.paths.unshift(path);
           this.aliasNames.unshift(reg);
           return;
         }
       }
     }
-  
+
     this.paths.push(path);
     this.aliasNames.push(reg);
-    
   };
 }
 
